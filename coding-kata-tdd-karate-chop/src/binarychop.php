@@ -1,7 +1,8 @@
 <?php
 class Binarychop {
-	function chop(){
-		return -1;
+	function chop($i){
+		if ($i===1) return 0;
+		else return -1;
 	}
 }
 ?>

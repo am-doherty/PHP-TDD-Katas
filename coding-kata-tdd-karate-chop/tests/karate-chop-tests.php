@@ -11,5 +11,23 @@ class chopTest extends PHPUnit_Framework_TestCase
 		$myChopper = new Binarychop();
         $this->assertEquals(-1, $myChopper->chop(3,array()));
     }
+	/* Search for integer '3' in array(1) */
+    public function testChop2()
+    {
+		$myChopper = new Binarychop();
+		$this->assertEquals(-1, $myChopper->chop(3,array(1)));
+    }	
+	/* Search for integer '1' in array(1) */
+    public function testChop3()
+    {
+		$myChopper = new Binarychop();
+		$this->assertEquals(0, $myChopper->chop(1,array(1)));
+    }	
+	/* Search for integer '1' in array(1,3,5) */
+    public function testChop4()
+    {
+		$myChopper = new Binarychop();
+		$this->assertEquals(0, $myChopper->chop(1,array(1, 3, 5)));
+    }	
 }
 ?>
