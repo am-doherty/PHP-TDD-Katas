@@ -1,10 +1,16 @@
 <?php
 class Binarychop {
 	function chop($i,$a){
-		if ($i===1) return 0;
-		elseif ($i===3 && $a==array(1,3,5)) return 1;
-		elseif ($i===5 && $a==array(1,3,5)) return 2;
-		else return -1;
-	}
+		if (!is_array($a)  || !is_int($i)) {
+			return -1;
+		}
+		$key = array_search($i,$a);
+		if ($key === FALSE) {
+			return -1;
+		}
+		else {
+			return($key);
+		}
+	}	
 }
 ?>
