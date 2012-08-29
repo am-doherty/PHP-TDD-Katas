@@ -1,5 +1,6 @@
 <?php
 class Binarychop {
+	private $sliceDisgardCount = 0;
 	private $needleInteger;
 	private $haystackArray;
 	function chop($inputInt,$inputArray){
@@ -9,48 +10,36 @@ class Binarychop {
 		}
 		$this->needleInteger = $inputInt;
 		$this->haystackArray = $inputArray;
-		// Quickie response for single item arrays
-		if (count($this->haystackArray) ===1) {
-			return ($this->needleInteger === $this->haystackArray[0] ) ? 0 : -1;
+		return ($this->haystackSlice($this->haystackArray));
+ 	}	
+	private function haystackSlice($localArray ) {
+ 		if (count($localArray) ===1) {
+			return ($this->needleInteger === $localArray[0] ) ? ($this->sliceDisgardCount) : -1;
 		}
 		// Handle dual item arrays
-		if (count($this->haystackArray) ===2) {
-			if ($this->needleInteger === $this->haystackArray[0]) return 0;
-			if ($this->needleInteger === $this->haystackArray[1]) return 1;
+		if (count($localArray) ===2) {
+			if ($this->needleInteger === $localArray[0]) return $this->sliceDisgardCount;
+			if ($this->needleInteger === $localArray[1]) return ($this->sliceDisgardCount+1);
 			return -1;
 		}
-		return $this->haystackSlice();
-		
- 	}	
-	private function haystackSlice() {
-			/*Response for multi-item arrays:
-		  *
-		  *    Find middle element, rounding down, assign key and value to $midKey and $midElem respectively
-		  *  	If the needle matches the middle item (you never know) then return key		  
-		  *   
-		  *   	If needle is less than middle item, derive lower half array and check for needle
-		  *   	If needle is greater than middle item, derive upper half array and check for needle
-		  *	Finally, if needle still not found, return -1
-		  */
-		$midElem = $this->haystackArray[$midKey = (floor(count($this->haystackArray)/2))];
-		if ($this->needleInteger === $midElem) return $midKey; 
-		$one = array_slice($this->haystackArray,0,$midKey);
-
- 		if ($this->needleInteger < $midElem){
-			if (($key = array_search($this->needleInteger,$one)) !==FALSE) {			 
-				return $key;
-			}
+		//Get the 'middle' element and its key 
+		$midElem = $localArray[$midKey = (floor(count($localArray)/2))];
+		// If we've found needle, return the key	
+		if ($this->needleInteger === $midElem) {
+			return ($this->sliceDisgardCount+$midKey); 
+		}
+		//If needle's smaller or larger than middle value, slice and retry.
+		if ($this->needleInteger < $midElem){
+ 			$localArray = array_slice($localArray,0,$midKey); //length from beginning
+ 			return $this->haystackSlice($localArray);
 		} 
-		else	{ 
-		 	$two = array_slice($this->haystackArray,$midKey);
-			if (($key = array_search($this->needleInteger,$two))!==FALSE) {
-			 	return ($key+count($one)); 
-			}
+		else { 
+			// If larger than middle, record the offset you're disgarding by slicing the upper half from the original haystack
+ 			 $this->sliceDisgardCount +=$midKey;
+		 	 $localArray = array_slice($localArray,$midKey);  //remainder from midpoint
+ 			return $this->haystackSlice($localArray);
 		} 
-		//finally, return -1 if not found at all
 		return -1;
 	}
-	
-	
 }
 ?>
