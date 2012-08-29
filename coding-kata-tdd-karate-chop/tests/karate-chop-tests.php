@@ -41,5 +41,41 @@ class chopTest extends PHPUnit_Framework_TestCase
 		$myChopper = new Binarychop();
 		$this->assertEquals(2, $myChopper->chop(5,array(1, 3, 5)));
     }	
+	/* test Incorrect argument types ---- Search for string 'foo' in array(1,3,5) */
+    public function testChop7()
+    {
+		$myChopper = new Binarychop();
+		$this->assertEquals(-1, $myChopper->chop('foo',array(1, 3, 5)));
+    }
+	/* test Incorrect argument types ---- Search for integer 5 in string */
+    public function testChop8()
+    {
+		$myChopper = new Binarychop();
+		$this->assertEquals(-1, $myChopper->chop(5,'a string'));
+    }		
+	/* Search for integer '5' in array(1,3,5) */
+    public function testChop9()
+    {
+		$myChopper = new Binarychop();
+		$this->assertEquals(2, $myChopper->chop(5,array(1, 3, 5,7,9)));
+    }	
+	/* Search for integer '12' in longer array */
+    public function testChop10()
+    {
+		$myChopper = new Binarychop();
+		$this->assertEquals(2, $myChopper->chop(5,array(1, 3, 5,7,9,12,34,123,223,278,450,1124,1900)));
+    }	
+	/* Search for integer '450' in longer array */
+    public function testChop11()
+    {
+		$myChopper = new Binarychop();
+		$this->assertEquals(10, $myChopper->chop(450,array(1, 3, 5,7,9,12,34,123,223,278,450,1124,1900)));
+    }		
+	/* Search for integer '450' in longer array (doesnt exist) */
+    public function testChop12()
+    {
+		$myChopper = new Binarychop();
+		$this->assertEquals(-1, $myChopper->chop(221,array(1, 3, 5,7,9,12,34,123,223,278,450,1124,1900)));
+    }		
 }
 ?>
