@@ -7,8 +7,6 @@ class Binarychop {
 		if (!is_array($inputArray) || count($inputArray) < 1 || !is_int($inputInt)) {
 			return -1;
 		}
-		$a = $inputArray;
-		$i = $inputInt;
 		$this->needleInteger = $inputInt;
 		$this->haystackArray = $inputArray;
 		// Quickie response for single item arrays
