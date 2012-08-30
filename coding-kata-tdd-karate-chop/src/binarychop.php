@@ -12,32 +12,33 @@ class Binarychop {
 		$this->haystackArray = $inputArray;
 		return ($this->haystackSlice($this->haystackArray));
  	}	
-	private function haystackSlice($localArray ) {
- 		if (count($localArray) ===1) {
-			return ($this->needleInteger === $localArray[0] ) ? ($this->sliceDisgardCount) : -1;
+
+	private function haystackSlice( ) {
+		if (count($this->haystackArray) ===1) {
+			return ($this->needleInteger === $this->haystackArray[0] ) ? ($this->sliceDisgardCount) : -1;
 		}
 		// Handle dual item arrays
-		if (count($localArray) ===2) {
-			if ($this->needleInteger === $localArray[0]) return $this->sliceDisgardCount;
-			if ($this->needleInteger === $localArray[1]) return ($this->sliceDisgardCount+1);
+		if (count($this->haystackArray) ===2) {
+			if ($this->needleInteger === $this->haystackArray[0]) return $this->sliceDisgardCount;
+			if ($this->needleInteger === $this->haystackArray[1]) return ($this->sliceDisgardCount+1);
 			return -1;
 		}
 		//Get the 'middle' element and its key 
-		$midElem = $localArray[$midKey = (floor(count($localArray)/2))];
+		$midElem = $this->haystackArray[$midKey = (floor(count($this->haystackArray)/2))];
 		// If we've found needle, return the key	
 		if ($this->needleInteger === $midElem) {
 			return ($this->sliceDisgardCount+$midKey); 
 		}
 		//If needle's smaller or larger than middle value, slice and retry.
 		if ($this->needleInteger < $midElem){
- 			$localArray = array_slice($localArray,0,$midKey); //length from beginning
- 			return $this->haystackSlice($localArray);
+			$this->haystackArray = array_slice($this->haystackArray,0,$midKey); //length from beginning
+			return $this->haystackSlice();
 		} 
 		else { 
 			// If larger than middle, record the offset you're disgarding by slicing the upper half from the original haystack
- 			 $this->sliceDisgardCount +=$midKey;
-		 	 $localArray = array_slice($localArray,$midKey);  //remainder from midpoint
- 			return $this->haystackSlice($localArray);
+			 $this->sliceDisgardCount +=$midKey;
+			 $this->haystackArray = array_slice($this->haystackArray,$midKey);  //remainder from midpoint
+			return $this->haystackSlice();
 		} 
 		return -1;
 	}
