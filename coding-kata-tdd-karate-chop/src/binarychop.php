@@ -28,12 +28,13 @@ class Binarychop {
 			$this->haystackArray = array_slice($this->haystackArray,0,$midKey); //length from beginning
 			return $this->haystackSlice();
 		} 
-		else { 
-			// If larger than middle value, record the offset you're disgarding by slicing the upper half from the original haystack, then retry.
-			 $this->sliceDisgardCount +=$midKey;
-			 $this->haystackArray = array_slice($this->haystackArray,$midKey);  //remainder from midpoint
-			return $this->haystackSlice();
-		} 
+		/* Otherwise...
+		  * Record the offset you're disgarding by slicing the upper half from the original haystack, 
+		  * Retry
+	 	  */
+		 $this->sliceDisgardCount +=$midKey;
+		 $this->haystackArray = array_slice($this->haystackArray,$midKey);  //remainder from midpoint
+		return $this->haystackSlice();
 	}
 }
 ?>
