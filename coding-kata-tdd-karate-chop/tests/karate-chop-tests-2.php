@@ -71,22 +71,22 @@ class chopTest extends PHPUnit_Framework_TestCase
 		$myChopper = new Binarychop2();
 		$this->assertEquals(10, $myChopper->chop(450,array(1, 3, 5,7,9,12,34,123,223,278,450,1124,1900)));
     }		
-	// /* Search for integer '450' in longer array (doesnt exist) */
-    // public function testChop12()
-    // {
-		// $myChopper = new Binarychop2();
-		// $this->assertEquals(-1, $myChopper->chop(221,array(1, 3, 5,7,9,12,34,123,223,278,450,1124,1900)));
-    // }	
-	// /* Search for integer '450' in longer array, of even number of items */
-    // public function testChop13()
-    // {
-		// $myChopper = new Binarychop2();
-		// $this->assertEquals(10, $myChopper->chop(450,array(1, 3, 5,7,9,12,34,123,223,278,450,1124)));
-    // }		
-    // public function testChop14()
-    // {
-		// $myChopper = new Binarychop2();
-		// $this->assertEquals(13, $myChopper->chop(450,array(1, 3, 5,5,7,9,12,12,34,123,223,278,278,450,1124)));
-    // }		
+	/* Search for integer '450' in longer array (doesnt exist) */
+    public function testChop12()
+    {
+		$myChopper = new Binarychop2();
+		$this->assertEquals(-1, $myChopper->chop(221,array(1, 3, 5,7,9,12,34,123,223,278,450,1124,1900)));
+    }	
+	/* Search for integer '450' in longer array, of even number of items */
+    public function testChop13()
+    {
+		$myChopper = new Binarychop2();
+		$this->assertEquals(10, $myChopper->chop(450,array(1, 3, 5,7,9,12,34,123,223,278,450,1124)));
+    }		
+    public function testChop14()
+    {
+		$myChopper = new Binarychop2();
+		$this->assertEquals(13, $myChopper->chop(450,array(1, 3, 5,5,7,9,12,12,34,123,223,278,278,450,1124)));
+    }		
 }
 ?>
