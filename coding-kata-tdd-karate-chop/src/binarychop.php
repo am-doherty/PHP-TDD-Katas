@@ -10,18 +10,12 @@ class Binarychop {
 		}
 		$this->needleInteger = $inputInt;
 		$this->haystackArray = $inputArray;
-		return ($this->haystackSlice($this->haystackArray));
+		return ($this->haystackSlice());
  	}	
 
 	private function haystackSlice( ) {
 		if (count($this->haystackArray) ===1) {
 			return ($this->needleInteger === $this->haystackArray[0] ) ? ($this->sliceDisgardCount) : -1;
-		}
-		// Handle dual item arrays
-		if (count($this->haystackArray) ===2) {
-			if ($this->needleInteger === $this->haystackArray[0]) return $this->sliceDisgardCount;
-			if ($this->needleInteger === $this->haystackArray[1]) return ($this->sliceDisgardCount+1);
-			return -1;
 		}
 		//Get the 'middle' element and its key 
 		$midElem = $this->haystackArray[$midKey = (floor(count($this->haystackArray)/2))];
@@ -35,12 +29,11 @@ class Binarychop {
 			return $this->haystackSlice();
 		} 
 		else { 
-			// If larger than middle, record the offset you're disgarding by slicing the upper half from the original haystack
+			// If larger than middle value, record the offset you're disgarding by slicing the upper half from the original haystack, then retry.
 			 $this->sliceDisgardCount +=$midKey;
 			 $this->haystackArray = array_slice($this->haystackArray,$midKey);  //remainder from midpoint
 			return $this->haystackSlice();
 		} 
-		return -1;
 	}
 }
 ?>
