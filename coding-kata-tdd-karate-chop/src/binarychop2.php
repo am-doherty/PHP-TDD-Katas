@@ -18,6 +18,13 @@ class Binarychop2 {
 			}
 			else {
 				$midElem = $this->haystackArray[$midKey = (floor(count($this->haystackArray)/2))];
+				/* ---------- Handling duplicates
+				  * Ensure value of chosen middle item has not appeared earlier in this (sorted) array
+				  */				
+				while ($this->haystackArray[$midKey-1] === $midElem)  {
+						$midElem = $this->haystackArray[$midKey = $midKey-1];
+				}
+				/* ---------- End Handling duplicates */
 				if ($this->needleInteger === $midElem) {
 					$this->indexFound = $midKey;
 					unset($this->haystackArray);
@@ -28,6 +35,7 @@ class Binarychop2 {
 				else {
 					 $this->sliceDisgardCount +=$midKey;
 					 $this->haystackArray = array_slice($this->haystackArray,$midKey); 
+			 		
 				}
 			}
 		}

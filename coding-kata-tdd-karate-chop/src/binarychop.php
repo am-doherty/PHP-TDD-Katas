@@ -19,6 +19,9 @@ class Binarychop {
 		}
 		//Get the 'middle' element and its key 
 		$midElem = $this->haystackArray[$midKey = (floor(count($this->haystackArray)/2))];
+		while ($this->haystackArray[$midKey-1] === $midElem)  {
+				$midElem = $this->haystackArray[$midKey = $midKey-1];
+		}
 		// If we've found needle, return the key	
 		if ($this->needleInteger === $midElem) {
 			return ($this->sliceDisgardCount+$midKey); 
