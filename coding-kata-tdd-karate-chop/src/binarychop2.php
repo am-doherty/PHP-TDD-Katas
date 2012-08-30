@@ -21,13 +21,13 @@ class Binarychop2 {
 	private function reduceHayStack( ) {
 		if (count($this->haystackArray) === 1) {
 			$this->indexFound = ($this->needleInteger === $this->haystackArray[0])?0: -1;
-			unset($this->haystackArray[0]);
+			unset($this->haystackArray);
 			return true;
 		}
 		$midElem = $this->haystackArray[$midKey = (floor(count($this->haystackArray)/2))];
 		if ($this->needleInteger === $midElem) {
 			$this->indexFound = $midKey;
-			return true;
+			unset($this->haystackArray);
 		}
 		elseif ($this->needleInteger < $midElem){
 			$this->haystackArray = array_slice($this->haystackArray,0,$midKey); 
