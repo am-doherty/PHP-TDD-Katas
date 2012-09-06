@@ -17,26 +17,31 @@ class Binarychop {
 		if (count($this->haystackArray) ===1) {
 			return ($this->needleInteger === $this->haystackArray[0] ) ? ($this->sliceDisregardCount) : -1;
 		}
-		//Get the 'middle' element and its key 
-		$midElem = $this->haystackArray[$midKey = (floor(count($this->haystackArray)/2))];
-		while ($this->haystackArray[$midKey-1] === $midElem)  {
-				$midElem = $this->haystackArray[$midKey = $midKey-1];
+		/* Handling duplicate values
+		  * retrieve the index of the midpoint item in the array, rounding down 
+		  */
+		$midpointIdx = floor(count($this->haystackArray)/2);
+		// 
+		while ($this->haystackArray[$midpointIdx] === $this->haystackArray[$midpointIdx-1])  {
+				$midpointIdx--;
 		}
+		$midElem = $this->haystackArray[$midpointIdx];
+		/* ---------- End Handling duplicates */
 		// If we've found needle, return the key	
 		if ($this->needleInteger === $midElem) {
-			return ($this->sliceDisregardCount+$midKey); 
+			return ($this->sliceDisregardCount+$midpointIdx); 
 		}
-		//If needle's smaller or larger than middle value, slice and retry.
+		//If needleInteger is smaller or larger than middle value, slice and retry.
 		if ($this->needleInteger < $midElem){
-			$this->haystackArray = array_slice($this->haystackArray,0,$midKey); //length from beginning
+			$this->haystackArray = array_slice($this->haystackArray,0,$midpointIdx); //length from beginning
 			return $this->haystackSlice();
 		} 
 		/* Otherwise...
 		  * Record the offset you're disgarding by slicing the upper half from the original haystack, 
 		  * Retry
 	 	  */
-		 $this->sliceDisregardCount +=$midKey;
-		 $this->haystackArray = array_slice($this->haystackArray,$midKey);  //remainder from midpoint
+		 $this->sliceDisregardCount +=$midpointIdx;
+		 $this->haystackArray = array_slice($this->haystackArray,$midpointIdx);  //remainder from midpoint
 		return $this->haystackSlice();
 	}
 }

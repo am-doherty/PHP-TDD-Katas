@@ -17,24 +17,26 @@ class Binarychop2 {
 				unset($this->haystackArray);
 			}
 			else {
-				$midElem = $this->haystackArray[$midKey = (floor(count($this->haystackArray)/2))];
-				/* ---------- Handling duplicates
-				  * Ensure value of chosen middle item has not appeared earlier in this (sorted) array
-				  */				
-				while ($this->haystackArray[$midKey-1] === $midElem)  {
-						$midElem = $this->haystackArray[$midKey = $midKey-1];
+				/* Handling duplicate values
+				  * retrieve the index of the midpoint item in the array, rounding down 
+				  */
+				$midpointIdx = floor(count($this->haystackArray)/2);
+				// 
+				while ($this->haystackArray[$midpointIdx] === $this->haystackArray[$midpointIdx-1])  {
+						$midpointIdx--;
 				}
+				$midElem = $this->haystackArray[$midpointIdx];
 				/* ---------- End Handling duplicates */
 				if ($this->needleInteger === $midElem) {
-					$this->indexFound = $midKey;
+					$this->indexFound = $midpointIdx;
 					unset($this->haystackArray);
 				}
 				elseif ($this->needleInteger < $midElem){
-					$this->haystackArray = array_slice($this->haystackArray,0,$midKey); 
+					$this->haystackArray = array_slice($this->haystackArray,0,$midpointIdx); 
 				} 
 				else {
-					 $this->sliceDisregardCount +=$midKey;
-					 $this->haystackArray = array_slice($this->haystackArray,$midKey); 
+					 $this->sliceDisregardCount +=$midpointIdx;
+					 $this->haystackArray = array_slice($this->haystackArray,$midpointIdx); 
 			 		
 				}
 			}
