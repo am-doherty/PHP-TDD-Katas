@@ -1,6 +1,6 @@
 <?php
 class Binarychop2 {
-	private $sliceDisgardCount = 0;
+	private $sliceDisregardCount = 0;
 	private $needleInteger;
 	private $haystackArray;
 	private $indexFound = -1;	
@@ -33,14 +33,14 @@ class Binarychop2 {
 					$this->haystackArray = array_slice($this->haystackArray,0,$midKey); 
 				} 
 				else {
-					 $this->sliceDisgardCount +=$midKey;
+					 $this->sliceDisregardCount +=$midKey;
 					 $this->haystackArray = array_slice($this->haystackArray,$midKey); 
 			 		
 				}
 			}
 		}
 		//return original offset if found, return -1 if not found
-		return ($this->indexFound === -1)?-1:($this->indexFound+$this->sliceDisgardCount);
+		return ($this->indexFound === -1)?-1:($this->indexFound+$this->sliceDisregardCount);
  	}	
 }
 ?>

@@ -1,6 +1,6 @@
 <?php
 class Binarychop {
-	private $sliceDisgardCount = 0;
+	private $sliceDisregardCount = 0;
 	private $needleInteger;
 	private $haystackArray;
 	function chop($inputInt,$inputArray){
@@ -15,7 +15,7 @@ class Binarychop {
 
 	private function haystackSlice( ) {
 		if (count($this->haystackArray) ===1) {
-			return ($this->needleInteger === $this->haystackArray[0] ) ? ($this->sliceDisgardCount) : -1;
+			return ($this->needleInteger === $this->haystackArray[0] ) ? ($this->sliceDisregardCount) : -1;
 		}
 		//Get the 'middle' element and its key 
 		$midElem = $this->haystackArray[$midKey = (floor(count($this->haystackArray)/2))];
@@ -24,7 +24,7 @@ class Binarychop {
 		}
 		// If we've found needle, return the key	
 		if ($this->needleInteger === $midElem) {
-			return ($this->sliceDisgardCount+$midKey); 
+			return ($this->sliceDisregardCount+$midKey); 
 		}
 		//If needle's smaller or larger than middle value, slice and retry.
 		if ($this->needleInteger < $midElem){
@@ -35,7 +35,7 @@ class Binarychop {
 		  * Record the offset you're disgarding by slicing the upper half from the original haystack, 
 		  * Retry
 	 	  */
-		 $this->sliceDisgardCount +=$midKey;
+		 $this->sliceDisregardCount +=$midKey;
 		 $this->haystackArray = array_slice($this->haystackArray,$midKey);  //remainder from midpoint
 		return $this->haystackSlice();
 	}
